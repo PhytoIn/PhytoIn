@@ -1,0 +1,21 @@
+Package: PhytoIn
+Type: Package
+Title: PhytoIn: Vegetation Inventory Package
+Version: 0.1.0
+Author: Rodrigo Augusto Santinelo Pereira
+Maintainer: The package maintainer <raspereira@usp.br>
+Description: The PhytoIn package provides a set of functions designed to assist in the analysis 
+    of phytosociological data and biomass estimation. The current version includes three main functions. 
+    'phytoparam' estimates phytosociological parameters for both plot and point-quarter methods. 
+    'AGB' computes the Above Ground Biomass. 'BA.plot' creates a map of the plots used in a vegetation 
+    survey and plots the basal area of the sampled trees.
+Depends: 
+    R (>= 3.1.0)
+Imports: 
+    BIOMASS,
+    ggplot2,
+    ggforce,
+    packcircles
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
