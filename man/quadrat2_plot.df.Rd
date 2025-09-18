@@ -19,10 +19,10 @@ A data frame with 219 rows and 6 variables:
 data(quadrat2_plot.df)
 }
 \description{
-A dataset containing tree measurements from 25 quadrats (5 × 5 m each) 
-sampled in a forest fragment located at the campus of the University of São Paulo, 
-Ribeirão Preto, Brazil. This dataset is organized to demonstrate the use of the 
-function \code{BAplot()} for visualizing basal areas. In addition to tree measurements, 
+A dataset containing tree measurements from 25 quadrats (5 × 5 m each)
+sampled in a forest fragment located at the campus of the University of Sao Paulo,
+Ribeirao Preto, Brazil. This dataset is organized to demonstrate the use of the
+function \code{BAplot()} for visualizing basal areas. In addition to tree measurements,
 it provides the spatial coordinates of the lower-left corner of each quadrat.
 }
 \keyword{datasets}

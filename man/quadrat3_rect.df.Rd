@@ -21,11 +21,11 @@ A data frame with 497 rows and 8 variables:
 data(quadrat3_rect.df)
 }
 \description{
-A dataset containing tree measurements from 25 rectangular quadrats 
-(20 × 10 m each) sampled in a seasonal semideciduous forest fragment 
-in the State of São Paulo, Brazil. The dataset includes total height and 
-commercial bole height of trees, along with the spatial coordinates of the 
-lower-left corner of each quadrat. It is organized to demonstrate the use 
+A dataset containing tree measurements from 25 rectangular quadrats
+(20 × 10 m each) sampled in a seasonal semideciduous forest fragment
+in the State of Sao Paulo, Brazil. The dataset includes total height and
+commercial bole height of trees, along with the spatial coordinates of the
+lower-left corner of each quadrat. It is organized to demonstrate the use
 of the function \code{BAplot()} with rectangular quadrats.
 }
 \keyword{datasets}

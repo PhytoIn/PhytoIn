@@ -1,38 +1,29 @@
-\# PhytoIn 0.2.0
+# PhytoIn 0.2.0
 
+- Nova função `summary.param()` (S3) com saída concisa e robusta.
+- `plot.param()` reescrito com seleção de tema via string/objeto **ggplot2**.
+- `collector.curve()` e `rarefaction()` com intervalos de confiança (ribbons) e tema configurável.
+- `AGB()` sem dependência de `rappdirs`; cache via `tools::R_user_dir()` e `BIOMASS::createCache()`.
+- `BAplot()` corrigido (bindings globais) e compatível com parcelas retangulares e coordenadas individuais.
+- Novos datasets: `quadrat2_plot.df`, `quadrat2_tree.df`, `quadrat3_rect.df`.
+- Documentação, exemplos e NAMESPACE/DESCRIPTION revisados.
 
+## First public release on CRAN
 
-\* First public release on CRAN (submitted YYYY-MM-DD).
+- `phytoparam()`, `summary.param()`, `plot.param()` para parâmetros fitossociológicos e índices de diversidade.
+- `AGB()` para biomassa acima do solo, carbono e CO₂ equivalente (wrapper do **BIOMASS**).
+- `stratvol()` para volume estratificado por classes de DAP.
+- `collector.curve()` para curvas de acumulação de espécies.
+- `rarefaction()` para rarefação individual com intervalos de confiança.
+- `BAplot()` para visualização de áreas basais (parcelas retangulares e coordenadas individuais).
+- Conjuntos de dados incluídos: `quadrat.df`, `point.df`, `quadrat2_plot.df`, `quadrat2_tree.df`, `quadrat3_rect.df`.
 
-\* Added functions:
+# PhytoIn 0.1.0 (development version)
 
-&nbsp; - `phytoparam()`, `summary.param()`, `plot.param()` for structural parameters and diversity indices.
+- Versão interna inicial.
+- Protótipos das funções centrais de análise fitossociológica.
+- Não submetido ao CRAN.
 
-&nbsp; - `AGB()` for above-ground biomass, carbon, and CO₂ equivalent estimation (wrapper around \*\*BIOMASS\*\*).
-
-&nbsp; - `stratvol()` for stratified wood volume by DBH classes.
-
-&nbsp; - `collector.curve()` for species–area (collector’s) curves.
-
-&nbsp; - `rarefaction()` for individual-based rarefaction with confidence intervals.
-
-&nbsp; - `BAplot()` for visualization of basal areas on quadrat maps (supports rectangular and individual coordinates).
-
-\* Added example datasets: `quadrat.df`, `point.df`, `quadrat2\_plot.df`, `quadrat2\_tree.df`, `quadrat3\_rect.df`.
-
-\* Implemented documentation with examples and vignettes.
-
-
-
-\# PhytoIn 0.1.0 (development version)
-
-
-
-\* Initial internal version.
-
-\* Prototyped core functions for phytosociological analysis.
-
-\* No CRAN submission.
 
 
 

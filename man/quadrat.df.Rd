@@ -18,8 +18,8 @@ A data frame with 171 rows and 5 variables:
 data(quadrat.df)
 }
 \description{
-A dataset containing tree measurements from 25 quadrats (5 × 5 m each) 
-sampled in a forest fragment located at the campus of the University of São Paulo, 
-Ribeirão Preto, Brazil.
+A dataset containing tree measurements from 25 quadrats (5 × 5 m each)
+sampled in a forest fragment located at the campus of the University of Sao Paulo,
+Ribeirao Preto, Brazil.
 }
 \keyword{datasets}

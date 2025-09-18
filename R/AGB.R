@@ -3,7 +3,7 @@
 #' Estimate the above-ground biomass (AGB), carbon (C) and CO\eqn{_2} equivalent (CO\eqn{_2}e) of trees.
 #'
 #' \code{AGB} is a wrapper around \pkg{BIOMASS} functions \code{getWoodDensity}, \code{computeAGB},
-#' and \code{correctTaxo} (Réjou-Méchain et al., 2017). Tree biomasses are computed using the
+#' and \code{correctTaxo} (Rejou-Mechain et al., 2017). Tree biomasses are computed using the
 #' allometric model of Chave et al. (2014).
 #'
 #' It is expected that taxon names are binomials (genus and species). The function splits the taxon
@@ -48,10 +48,10 @@
 #' }
 #'
 #' @references
-#' Boyle, B. et al. (2013) \emph{BMC Bioinformatics} 14:16. \doi{10.1186/1471-2105-14-16}\cr
+#' Boyle, B. et al. (2013) \emph{BMC Bioinformatics} 14:16.\cr
 #' Chave, J. et al. (2014) \emph{Global Change Biology} 20(10):3177--3190.\cr
-#' Réjou-Méchain, M. et al. (2017) \emph{Methods in Ecology and Evolution} 8:1163--1167. \doi{10.1111/2041-210X.12753}\cr
-#' Zanne, A.E. et al. (2009) Global wood density database. Dryad. \url{http://hdl.handle.net/10255/dryad.235}
+#' Rejou-Mechain, M. et al. (2017) \emph{Methods in Ecology and Evolution} 8:1163--1167.\cr
+#' Zanne, A.E. et al. (2009) Global wood density database. Dryad.\cr
 #'
 #' @examples
 #' data <- quadrat.df
@@ -159,7 +159,7 @@ AGB <- function(x, measure.label, h, taxon="taxon", dead="dead", circumference=T
   # Correct taxon
   # Cache robusto, sem 'rappdirs'
   if (isTRUE(correct.taxon)) {
-    # Definir diretório de cache (compatível com R >= 4.0)
+    # Definir diretorio de cache (compativel com R >= 4.0)
     cache_dir <- tryCatch({
       if (getRversion() >= "4.0.0") {
         tools::R_user_dir("PhytoIn", which = "cache")
@@ -174,7 +174,7 @@ AGB <- function(x, measure.label, h, taxon="taxon", dead="dead", circumference=T
 
     BIOMASS::createCache(path = cache_dir)
 
-    # Só executa correctTaxo se httr2 estiver disponível
+    # So executa correctTaxo se httr2 estiver disponivel
     if (!requireNamespace("httr2", quietly = TRUE)) {
       warning("Skipping taxon standardization: package 'httr2' not available.", call. = FALSE)
     } else {
@@ -214,7 +214,7 @@ AGB <- function(x, measure.label, h, taxon="taxon", dead="dead", circumference=T
   # Biomass
   # Biomassa
   if (missing(h)) {
-    # Estimará H via coord -> exige httr2 (e dependências usadas pelo BIOMASS)
+    # Estimara H via coord -> exige httr2 (e dependências usadas pelo BIOMASS)
     if (!requireNamespace("httr2", quietly = TRUE)) {
       stop("Estimating height from `coord` requires the optional package 'httr2'. ",
            "Install it (and dependencies) or provide `h`.", call. = FALSE)

@@ -53,7 +53,7 @@ point-centered quarter method.}
 \item{quadrat}{Logical. If `TRUE` (default) data were sampled using the quadrat
 method; if `FALSE`, the point-centered quarter method is assumed.}
 
-\item{su.size}{Numeric scalar giving the quadrat area (m^2); required only if
+\item{su.size}{Numeric scalar giving the quadrat area (\eqn{m^2}); required only if
 `quadrat = TRUE`.}
 
 \item{d}{Name of the column representing the point-to-tree distance; required only
@@ -71,7 +71,7 @@ misspelling.}
 \value{
 An object of class `"param"` with two or four data frames:
 * `global`: total parameters and diversity indices. Sampled area in hectares (ha),
-  total density in individuals/ha, total dominance in m^2/ha (basal area) or m^3/ha
+  total density in individuals/ha, total dominance in \eqn{m^2} \eqn{ha^{-1}} (basal area) or \eqn{m^3} \eqn{ha^{-1}}
   (volume, when computed), and Shannon--Wiener `H'` in nats/individual (natural log).
 * `param`: taxon-level table with `N`, absolute/relative density (`ADe`, `RDe`),
   absolute/relative frequency (`AFr`, `RFr`), absolute/relative dominance (`ADo`, `RDo`),

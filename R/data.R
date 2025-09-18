@@ -1,8 +1,8 @@
 #' Forest inventory dataset from 25 quadrats
 #'
-#' A dataset containing tree measurements from 25 quadrats (5 × 5 m each) 
-#' sampled in a forest fragment located at the campus of the University of São Paulo, 
-#' Ribeirão Preto, Brazil.
+#' A dataset containing tree measurements from 25 quadrats (5 × 5 m each)
+#' sampled in a forest fragment located at the campus of the University of Sao Paulo,
+#' Ribeirao Preto, Brazil.
 #'
 #' @format A data frame with 171 rows and 5 variables:
 #' \describe{
@@ -22,10 +22,10 @@
 
 #' Point-centered quarter dataset
 #'
-#' A dataset containing tree measurements collected using the 
-#' point-centered quarter method at 25 sampling points 
-#' in a forest fragment located at the campus of the University of São Paulo, 
-#' Ribeirão Preto, Brazil. At each point, the nearest tree in each of the 
+#' A dataset containing tree measurements collected using the
+#' point-centered quarter method at 25 sampling points
+#' in a forest fragment located at the campus of the University of Sao Paulo,
+#' Ribeirao Preto, Brazil. At each point, the nearest tree in each of the
 #' four quadrants was sampled, totaling 100 individuals.
 #'
 #' @format A data frame with 100 rows and 6 variables:
@@ -47,10 +47,10 @@
 
 #' Quadrat dataset with coordinates for basal area plotting
 #'
-#' A dataset containing tree measurements from 25 quadrats (5 × 5 m each) 
-#' sampled in a forest fragment located at the campus of the University of São Paulo, 
-#' Ribeirão Preto, Brazil. This dataset is organized to demonstrate the use of the 
-#' function \code{BAplot()} for visualizing basal areas. In addition to tree measurements, 
+#' A dataset containing tree measurements from 25 quadrats (5 × 5 m each)
+#' sampled in a forest fragment located at the campus of the University of Sao Paulo,
+#' Ribeirao Preto, Brazil. This dataset is organized to demonstrate the use of the
+#' function \code{BAplot()} for visualizing basal areas. In addition to tree measurements,
 #' it provides the spatial coordinates of the lower-left corner of each quadrat.
 #'
 #' @format A data frame with 219 rows and 6 variables:
@@ -72,11 +72,11 @@
 
 #' Quadrat dataset with simulated individual tree coordinates
 #'
-#' A dataset containing tree measurements from 25 quadrats (5 × 5 m each) 
-#' sampled in a forest fragment located at the campus of the University of São Paulo, 
-#' Ribeirão Preto, Brazil. This dataset corresponds to the same trees as in 
-#' \code{quadrat2_plot.df}, but includes simulated coordinates (in meters) for 
-#' each individual tree inside the quadrats. It is organized to demonstrate the 
+#' A dataset containing tree measurements from 25 quadrats (5 × 5 m each)
+#' sampled in a forest fragment located at the campus of the University of Sao Paulo,
+#' Ribeirao Preto, Brazil. This dataset corresponds to the same trees as in
+#' \code{quadrat2_plot.df}, but includes simulated coordinates (in meters) for
+#' each individual tree inside the quadrats. It is organized to demonstrate the
 #' use of the function \code{BAplot()} with the argument \code{ind.coord = TRUE}.
 #'
 #' @format A data frame with 219 rows and 7 variables:
@@ -97,11 +97,11 @@
 
 #' Rectangular quadrat dataset
 #'
-#' A dataset containing tree measurements from 25 rectangular quadrats 
-#' (20 × 10 m each) sampled in a seasonal semideciduous forest fragment 
-#' in the State of São Paulo, Brazil. The dataset includes total height and 
-#' commercial bole height of trees, along with the spatial coordinates of the 
-#' lower-left corner of each quadrat. It is organized to demonstrate the use 
+#' A dataset containing tree measurements from 25 rectangular quadrats
+#' (20 × 10 m each) sampled in a seasonal semideciduous forest fragment
+#' in the State of Sao Paulo, Brazil. The dataset includes total height and
+#' commercial bole height of trees, along with the spatial coordinates of the
+#' lower-left corner of each quadrat. It is organized to demonstrate the use
 #' of the function \code{BAplot()} with rectangular quadrats.
 #'
 #' @format A data frame with 497 rows and 8 variables:

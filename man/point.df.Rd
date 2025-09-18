@@ -19,10 +19,10 @@ A data frame with 100 rows and 6 variables:
 data(point.df)
 }
 \description{
-A dataset containing tree measurements collected using the 
-point-centered quarter method at 25 sampling points 
-in a forest fragment located at the campus of the University of São Paulo, 
-Ribeirão Preto, Brazil. At each point, the nearest tree in each of the 
+A dataset containing tree measurements collected using the
+point-centered quarter method at 25 sampling points
+in a forest fragment located at the campus of the University of Sao Paulo,
+Ribeirao Preto, Brazil. At each point, the nearest tree in each of the
 four quadrants was sampled, totaling 100 individuals.
 }
 \keyword{datasets}

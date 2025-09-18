@@ -1,6 +1,6 @@
 #' Stratified wood volume by DBH classes
 #'
-#' \code{stratvol} computes wood volume (m³·ha⁻¹) stratified by diameter at breast height (DBH, in centimeters)
+#' \code{stratvol} computes wood volume (\eqn{m^3} \eqn{ha^{-1}}) stratified by diameter at breast height (DBH, in centimeters)
 #' classes for each taxon in a forest inventory. Individual tree volume is calculated as
 #' \eqn{V_i = ABi \times h \times shape.factor}, where \eqn{ABi} is the individual basal area at breast height
 #' and \eqn{h} is tree height. Volumes are then summed within DBH classes and standardized per hectare using
@@ -19,12 +19,12 @@
 #' - DBH classes are defined from the numeric breakpoints provided in \code{classes}, using closed–open intervals internally
 #'   and labeled for readability as: \code{<=a}, \code{]a-b]}, …, \code{>z} (all in centimeters).
 #' - Individual volume is computed as \eqn{V_i = ABi \times h \times shape.factor}.
-#'   Summed volumes per class are divided by the inventoried area (in hectares) retrieved from \code{obj$global}, yielding m³·ha⁻¹.
+#'   Summed volumes per class are divided by the inventoried area (in hectares) retrieved from \code{obj$global}, yielding \eqn{m^3} \eqn{ha^{-1}}.
 #'
 #' @return A \code{data.frame} with one row per taxon and the following columns:
 #' \itemize{
 #'   \item \code{Taxon}: Taxon label.
-#'   \item One column per DBH class (labeled in centimeters), containing the summed wood volume per hectare (m³·ha⁻¹)
+#'   \item One column per DBH class (labeled in centimeters), containing the summed wood volume per hectare (\eqn{m^3} \eqn{ha^{-1}})
 #'   for that taxon within the class. Missing combinations are returned as 0.
 #' }
 #'

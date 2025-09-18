@@ -19,11 +19,11 @@ A data frame with 219 rows and 7 variables:
 data(quadrat2_tree.df)
 }
 \description{
-A dataset containing tree measurements from 25 quadrats (5 × 5 m each) 
-sampled in a forest fragment located at the campus of the University of São Paulo, 
-Ribeirão Preto, Brazil. This dataset corresponds to the same trees as in 
-\code{quadrat2_plot.df}, but includes simulated coordinates (in meters) for 
-each individual tree inside the quadrats. It is organized to demonstrate the 
+A dataset containing tree measurements from 25 quadrats (5 × 5 m each)
+sampled in a forest fragment located at the campus of the University of Sao Paulo,
+Ribeirao Preto, Brazil. This dataset corresponds to the same trees as in
+\code{quadrat2_plot.df}, but includes simulated coordinates (in meters) for
+each individual tree inside the quadrats. It is organized to demonstrate the
 use of the function \code{BAplot()} with the argument \code{ind.coord = TRUE}.
 }
 \keyword{datasets}

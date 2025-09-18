@@ -1,2 +1,11 @@
-^.*\.Rproj$
+^README\.Rmd$
+^\.github$
+^\.github/workflows/.*$
 ^\.Rproj\.user$
+^.*\.Rproj$
+^\.Rhistory$
+^\.RData$
+^\.gitignore$
+
+
+
