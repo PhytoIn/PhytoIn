@@ -96,7 +96,7 @@
 #'   theme = "theme_minimal"
 #' )
 #'
-#' ## Using a matrix (short format)
+#' ## Using a matrix (wide format)
 #' data.matrix <- with(
 #'   quadrat.df,
 #'   table(Plot, Species, exclude = "Morta")

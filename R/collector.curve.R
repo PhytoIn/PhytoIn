@@ -13,7 +13,7 @@
 #'   and one column representing the taxon names of the individual plants. This argument accepts
 #'   the data frame used in the argument \code{x} in \code{\link{phytoparam}}.
 #' @param x Species-by-sample matrix, with rows representing SUs and columns representing taxa
-#'   ('short format'). Can be either an abundance or presence–absence matrix. Ignored if
+#'   ('wide format'). Can be either an abundance or presence–absence matrix. Ignored if
 #'   \code{formula} and \code{data} are used.
 #' @param times Integer. Number of random permutations used in calculations. Default is 1000.
 #'   Larger values (> 1000) yield more stable estimates.
@@ -95,7 +95,7 @@
 #'   times = 1000, long = FALSE, plot = TRUE, theme = "theme_minimal"
 #' )
 #'
-#' ## Using a matrix (short format)
+#' ## Using a matrix (wide format)
 #' data.matrix <- with(
 #'   quadrat.df,
 #'   table(Plot, Species, exclude = "Morta")
