@@ -1,28 +1,28 @@
 # PhytoIn 0.2.0
 
-- Nova função `summary.param()` (S3) com saída concisa e robusta.
-- `plot.param()` reescrito com seleção de tema via string/objeto **ggplot2**.
-- `collector.curve()` e `rarefaction()` com intervalos de confiança (ribbons) e tema configurável.
-- `AGB()` sem dependência de `rappdirs`; cache via `tools::R_user_dir()` e `BIOMASS::createCache()`.
-- `BAplot()` corrigido (bindings globais) e compatível com parcelas retangulares e coordenadas individuais.
-- Novos datasets: `quadrat2_plot.df`, `quadrat2_tree.df`, `quadrat3_rect.df`.
-- Documentação, exemplos e NAMESPACE/DESCRIPTION revisados.
+- New function summary.param() (S3) with concise and robust output.
+- collector.curve() and rarefaction() now include confidence intervals (ribbons) and configurable themes.
+- AGB() no longer depends on rappdirs; optional cache via tools::R_user_dir() and BIOMASS::createCache().
+- BAplot() fixed (global bindings) and compatible with rectangular plots and individual coordinates.
+- New datasets: quadrat2_plot.df, quadrat2_tree.df, quadrat3_rect.df.
+- Documentation, examples, and NAMESPACE/DESCRIPTION revised.
 
 ## First public release on CRAN
 
-- `phytoparam()`, `summary.param()`, `plot.param()` para parâmetros fitossociológicos e índices de diversidade.
-- `AGB()` para biomassa acima do solo, carbono e CO₂ equivalente (wrapper do **BIOMASS**).
-- `stratvol()` para volume estratificado por classes de DAP.
-- `collector.curve()` para curvas de acumulação de espécies.
-- `rarefaction()` para rarefação individual com intervalos de confiança.
-- `BAplot()` para visualização de áreas basais (parcelas retangulares e coordenadas individuais).
-- Conjuntos de dados incluídos: `quadrat.df`, `point.df`, `quadrat2_plot.df`, `quadrat2_tree.df`, `quadrat3_rect.df`.
+- phytoparam(), summary.param(), plot.param() for phytosociological parameters and diversity indices.
+- AGB() for aboveground biomass, carbon, and CO₂ equivalent (wrapper of BIOMASS).
+- stratvol() for stratified volume by DBH classes.
+- collector.curve() for species accumulation curves.
+- rarefaction() for individual-based rarefaction with confidence intervals.
+- BAplot() for visualization of basal areas (rectangular plots and individual coordinates).
+- Included datasets: quadrat.df, point.df, quadrat2_plot.df, quadrat2_tree.df, quadrat3_rect.df.
 
 # PhytoIn 0.1.0 (development version)
 
-- Versão interna inicial.
-- Protótipos das funções centrais de análise fitossociológica.
-- Não submetido ao CRAN.
+- Initial internal version.
+- Prototypes of the core functions for phytosociological analysis.
+- Not submitted to CRAN.
+
 
 
 

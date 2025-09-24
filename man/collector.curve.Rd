@@ -60,14 +60,17 @@ Defaults to \code{"theme_classic"}.}
 }
 \value{
 If \code{long = FALSE} (default), returns a data frame with columns:
-  \item{n}{number of sample units}
-  \item{s}{mean number of species}
-  \item{lower}{lower confidence interval bound}
-  \item{upper}{upper confidence interval bound}
-
+\itemize{
+  \item \code{n}: number of sample units.
+  \item \code{s}: mean number of species.
+  \item \code{lower}: lower confidence interval bound.
+  \item \code{upper}: upper confidence interval bound.
+}
 If \code{long = TRUE}, returns a list with:
-  \item{matrix.s}{full matrix of species richness per permutation}
-  \item{s}{the summarized data frame described above}
+\itemize{
+  \item \code{matrix.s}: full matrix of species richness per permutation.
+  \item \code{s}: the summarized data frame described above.
+}
 }
 \description{
 Computes species accumulation (collector's) curves based on sample units (SUs).

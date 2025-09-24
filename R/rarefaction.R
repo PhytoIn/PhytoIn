@@ -33,7 +33,7 @@
 #' estimators proposed by Heck et al. (1975) and Tipper (1979).
 #'
 #' The function accepts data in three formats:
-#' \enumerate{
+#' \itemize{
 #'   \item long format (formula + data arguments),
 #'   \item contingency matrix,
 #'   \item vector of individuals per species.
@@ -41,10 +41,12 @@
 #' Dead individuals can be excluded by specifying an additional term in the formula.
 #'
 #' @return A data frame with the following components:
-#'   \item{n}{Sample size (number of individuals).}
-#'   \item{s}{Expected number of species.}
-#'   \item{lower}{Lower bound of the confidence interval.}
-#'   \item{upper}{Upper bound of the confidence interval.}
+#' \itemize{
+#'   \item \code{n}: number of sample units.
+#'   \item \code{s}: mean number of species.
+#'   \item \code{lower}: lower confidence interval bound.
+#'   \item \code{upper}: upper confidence interval bound.
+#'   }
 #'
 #' If \code{plot = TRUE}, a rarefaction curve with confidence ribbons is produced using \pkg{ggplot2}.
 #'
