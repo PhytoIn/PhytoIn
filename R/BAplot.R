@@ -100,7 +100,7 @@ BAplot <- function(formula, data, taxon="taxon", circumference=TRUE, quadrat.siz
   {
     filter = tolower(data[[taxon]]) == tolower(dead)
     data <- data[!filter, ]
-    cat ("\n", sum(filter), "dead individuals removed from the dataset \n")
+    message(sum(filter), " dead individuals removed from the dataset")
   }
   fm <- as.formula(formula) # convert 'formula' in a formula object
   vars <- all.vars(fm)

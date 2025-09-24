@@ -29,9 +29,11 @@
 #' }
 #'
 #' @note
-#' - Units: Supply \code{classes} in centimeters. The function assumes \code{ABi} and \code{h}
+#' \itemize{
+#'   \item \strong{Units:} Supply size classes in centimeters. The function assumes \code{ABi} and \code{h}
 #'   yield volume in cubic meters before per-hectare standardization.
-#' - Class limits: Class breakpoints should not exceed the maximum observed DBH; otherwise the function stops with an error.
+#'   \item \strong{Class limits:} Class breakpoints should not exceed the maximum observed DBH; otherwise the function stops with an error.
+#' }
 #'
 #' @author Rodrigo Augusto Santinelo Pereira (\email{raspereira@usp.br})
 #'
@@ -74,7 +76,7 @@ stratvol <- function(obj, classes=20, shape.factor=1, rm.dead=FALSE)
   if (rm.dead)
   {
     x <- x[!filter, ] # remove lines with dead trees
-    cat ("\n", sum(filter), "dead individuals removed from the dataset \n")
+    message(sum(filter), " dead individuals removed from the dataset.")
   }
 
   x$Diam <- 2 * sqrt(x$abi/pi)  # Convert ABi in diameter
@@ -98,11 +100,11 @@ stratvol <- function(obj, classes=20, shape.factor=1, rm.dead=FALSE)
 
   # Volume per species per class
   species <- unique(x[[taxon]])
-  table <- aggregate(I(Vi/area)~data.split[[1]][[taxon]], data = data.split[[1]], FUN=sum, na.rm = T)
+  table <- aggregate(I(Vi/area)~data.split[[1]][[taxon]], data = data.split[[1]], FUN=sum, na.rm = TRUE)
   volume <- table[, 2][match(species, table[, 1])]
   res <- data.frame(species, volume)
   for(j in 2:length(lab)){
-    table <- aggregate(I(Vi/area)~data.split[[j]][[taxon]], data = data.split[[j]], FUN=sum, na.rm = T)
+    table <- aggregate(I(Vi/area)~data.split[[j]][[taxon]], data = data.split[[j]], FUN=sum, na.rm = TRUE)
     volume <- table[, 2][match(species, table[, 1])]
     res <- cbind(res, volume)
   }

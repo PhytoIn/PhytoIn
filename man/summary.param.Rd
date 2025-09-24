@@ -8,7 +8,7 @@
 \method{summary}{param}(object, ...)
 }
 \arguments{
-\item{object}{An object of class \code{"param"} returned by [phytoparam()].}
+\item{object}{An object of class \code{param} returned by \code{\link{phytoparam}}.}
 
 \item{...}{Ignored.}
 }
@@ -17,7 +17,7 @@ Used mainly for its side effect of printing to the console.
   Invisibly returns the displayed \code{data.frame}.
 }
 \description{
-Display a concise summary of the global parameters computed by [phytoparam()].
+Display a concise summary of the global parameters computed by \code{\link{phytoparam}}.
 If family-level outputs are present (i.e., the string "N. of families" occurs
 in the first column of \code{object$global}), the first seven rows are shown;
 otherwise, the first six rows are shown.
@@ -36,5 +36,5 @@ summary(res)  # calls summary.param (S3)
 
 }
 \seealso{
-[phytoparam()], [plot.param()]
+\pkg{PhytoIn} (\code{\link{phytoparam}}, \code{\link{plot.param}}.
 }

@@ -116,7 +116,7 @@
 
 
 
-collector.curve <- function(formula, data, x, times = 1000, replace = F, prob = 0.95, spar=0, xlab, ylab, plot=T, long=F, theme = "theme_classic")
+collector.curve <- function(formula, data, x, times = 1000, replace = FALSE, prob = 0.95, spar=0, xlab, ylab, plot=TRUE, long=FALSE, theme = "theme_classic")
 {
   if(!missing(formula)) {
     fm <- as.formula(formula) # Transforms the "formula" argument into a formula object
@@ -132,7 +132,7 @@ collector.curve <- function(formula, data, x, times = 1000, replace = F, prob = 
       dead<-vars[3]
       filter = data[[taxon]] == dead # tests which individuals are "dead"
       data <- data[!filter, ] # removes rows containing dead plants from the data frame
-      cat ("\n", sum(filter), "dead individuals removed from the dataset \n","\n") # displays a message with the number of "dead" individuals removed from the data frame
+      message(sum(filter), " dead individuals removed from the dataset.") # displays a message with the number of "dead" individuals removed from the data frame
     }
     x<-table(data[[su]], data[[taxon]])
   }
@@ -144,7 +144,7 @@ collector.curve <- function(formula, data, x, times = 1000, replace = F, prob = 
   if(missing(ylab)) ylab <- "Number of species"
   #
   # creates a matrix of ones and zeros
-  line.zero.one <- lower.tri(matrix(, nrow=lines.x, ncol=lines.x), diag=T)
+  line.zero.one <- lower.tri(matrix(, nrow=lines.x, ncol=lines.x), diag=TRUE)
   #
   # beginning of sampling. 1st is done with the original order
   # creates matrix of accumulated richness per plot
@@ -178,7 +178,7 @@ collector.curve <- function(formula, data, x, times = 1000, replace = F, prob = 
   rownames(m.s)<-NULL
   # Creates list with the results
   # Long results, including matrices with the re-samples
-  if(long==T){
+  if(long==TRUE){
     result.names <- c("matrix.s", "s")
     result <- list(matrix.s, m.s)
     names(result) <- result.names
@@ -188,7 +188,7 @@ collector.curve <- function(formula, data, x, times = 1000, replace = F, prob = 
   }
   #
   # Displays results
-  if (plot==T){
+  if (plot==TRUE){
 #    if(all((.packages())!= "ggplot2")) library(ggplot2)
 
     ## 1) Smooth CI limits

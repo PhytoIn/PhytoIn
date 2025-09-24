@@ -9,13 +9,13 @@ collector.curve(
   data,
   x,
   times = 1000,
-  replace = F,
+  replace = FALSE,
   prob = 0.95,
   spar = 0,
   xlab,
   ylab,
-  plot = T,
-  long = F,
+  plot = TRUE,
+  long = FALSE,
   theme = "theme_classic"
 )
 }

@@ -7,7 +7,7 @@
 \method{plot}{param}(x, theme = "theme_classic", ...)
 }
 \arguments{
-\item{x}{An object of class \code{"param"} (output of \code{\link{phytoparam}}) whose
+\item{x}{An object of class \code{param} (output of \code{\link{phytoparam}}) whose
 \code{$param} data frame contains at least the columns \code{Taxon}, \code{RDe}, \code{RFr}, \code{RDo}, and \code{IV}.}
 
 \item{theme}{A ggplot2 theme to apply. Either a character string naming a theme
@@ -21,7 +21,7 @@ A \code{ggplot} object.
 }
 \description{
 Produce a stacked bar chart of relative dominance (RDo), relative frequency (RFr),
-and relative density (RDe) for each taxon contained in a \code{"param"} object returned
+and relative density (RDe) for each taxon contained in a \code{param} object returned
 by \code{\link{phytoparam}}. Taxa are ordered by the Importance Value (IV).
 }
 \details{
@@ -38,5 +38,5 @@ plot(res, theme = ggplot2::theme_minimal()) # theme object
 
 }
 \seealso{
-\code{\link{phytoparam}}, \code{\link{summary.param}}, and \strong{ggplot2}.
+\code{\link{phytoparam}}, \code{\link{summary.param}}, and \pkg{ggplot2}.
 }

@@ -19,6 +19,7 @@ AGB(
   correct.taxon = TRUE,
   sort = TRUE,
   decreasing = TRUE,
+  cache = FALSE,
   long = FALSE
 )
 }
@@ -51,6 +52,9 @@ Required when \code{h} is missing in \code{x}.}
 \item{sort}{Logical; if \code{TRUE} (default) taxa are sorted by AGB.}
 
 \item{decreasing}{Logical; if \code{TRUE} (default) sorting is in decreasing order.}
+
+\item{cache}{Logical or \code{NULL}; if \code{TRUE} the function with write and use a cache to reduce online search of taxa names.
+(\code{NULL} means use cache but clear it first). Default is \code{cache = FALSE}.}
 
 \item{long}{Logical; if \code{FALSE} (default) the \code{$tree} component is omitted (see \strong{Value}).}
 }

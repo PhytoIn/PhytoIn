@@ -3,70 +3,76 @@
 #' Estimate the phytosociological parameters and the Shannon--Wiener, Pielou, and
 #' Simpson diversity indices, using the quadrat or the point-centered quarter methods.
 #'
-#' @param x A `data.frame` containing the community sample data. See **Details**.
+#' @param x A \code{data.frame} containing the community sample data. See 'Details'.
 #' @param measure.label Name of the column representing the circumference/diameter at
-#'   breast height. If omitted the function assumes the default names `"cbh"` or `"dbh"`
-#'   for circumference or diameter at breast height, respectively (see `circumference`).
-#' @param h Name of the column representing trunk height. Default is `"h"`.
-#' @param taxon Name of the column representing the sampled taxa. Default is `"taxon"`.
+#'   breast height. If omitted the function assumes the default names "cbh" or "dbh"
+#'   for circumference or diameter at breast height, respectively (see \code{circumference}).
+#' @param h Name of the column representing trunk height. Default is "h".
+#' @param taxon Name of the column representing the sampled taxa. Default is "taxon".
 #'   Use UTF-8 encoding; accents and special characters are not allowed.
 #' @param family Name of the column representing the family names of the sampled taxa.
-#'   Default is `"family"`. Used to calculate the number of individuals and number of
-#'   species per family. If you do not want these parameters, set `family = NA`.
-#'   Use UTF-8 encoding; accents and special characters are not allowed.
-#' @param dead String used to identify dead individuals. Default is `"dead"`.
-#' @param circumference Logical. If `TRUE` (default) circumference at breast height
-#'   was measured; otherwise `dbh` is assumed.
+#'   Default is "family". Used to calculate the number of individuals and number of
+#'   species per family. If you do not want these parameters, set \code{family = NA}.
+#'   Use \code{UTF-8} encoding; accents and special characters are not allowed.
+#' @param dead String used to identify dead individuals. Default is "dead".
+#' @param circumference Logical. If \code{TRUE} (default) circumference at breast height
+#'   was measured; otherwise "dbh" is assumed.
 #' @param su Name of the column representing the sample-unit identifier.
-#'   Default is `"quadrat"` for the quadrat method and `"point"` for the
+#'   Default is "quadrat" for the quadrat method and "point" for the
 #'   point-centered quarter method.
-#' @param height Logical. If `FALSE` (default) trunk volume is not calculated.
-#' @param quadrat Logical. If `TRUE` (default) data were sampled using the quadrat
-#'   method; if `FALSE`, the point-centered quarter method is assumed.
+#' @param height Logical. If \code{FALSE} (default) trunk volume is not calculated.
+#' @param quadrat Logical. If \code{TRUE} (default) data were sampled using the quadrat
+#'   method; if \code{FALSE}, the point-centered quarter method is assumed.
 #' @param su.size Numeric scalar giving the quadrat area (\eqn{m^2}); required only if
-#'   `quadrat = TRUE`.
+#'   \code{quadrat = TRUE}.
 #' @param d Name of the column representing the point-to-tree distance; required only
-#'   if `quadrat = FALSE`. Default is `"distance"`.
-#' @param shape.factor Numeric in `(0, 1]` indicating the trunk shape.
-#'   `1` assumes a perfect cylinder.
-#' @param rm.dead Logical. If `FALSE` (default) phytosociological parameters for dead
+#'   if \code{quadrat = FALSE}. Default is "distance".
+#' @param shape.factor Numeric value between in 0 and 1, indicating the trunk shape.
+#'   Value \code{1} assumes a perfect cylinder.
+#' @param rm.dead Logical. If \code{FALSE} (default) phytosociological parameters for dead
 #'   individuals are calculated.
-#' @param check.spelling Logical. If `TRUE` (default) taxon names are checked for
+#' @param check.spelling Logical. If \code{TRUE} (default) taxon names are checked for
 #'   misspelling.
 #'
 #' @details
 #' The function estimates phytosociological parameters for tree communities sampled
-#' by quadrat or point-centered quarter methods (`quadrat = TRUE` or `FALSE`).
+#' by quadrat or point-centered quarter methods (\code{quadrat = TRUE} or \code{FALSE},
+#' respectively).
 #'
-#' For the **quadrat** method, `x` must contain columns for sample-unit labels,
-#' taxon names, and `cbh` or `dbh` measurements for each sampled tree. Additionally,
+#' For the quadrat method, \code{x} must contain columns for sample-unit labels,
+#' taxon names, and "cbh" or "dbh" measurements for each sampled tree. Additionally,
 #' trunk height and family can be included to estimate volume and family-level parameters.
 #'
-#' For the **point-centered quarter** method, `x` must contain (in addition to the
+#' For the point-centered quarter method, \code{x} must contain (in addition to the
 #' mandatory quadrat columns) a column for the distance from the point to each individual.
 #'
-#' The `cbh`/`dbh` column accepts multiple-stem notation, e.g. `"17.1+8+5.7+6.8"`.
+#' The "cbh"/"dbh" column accepts multiple-stem notation, e.g. "17.1+8+5.7+6.8".
 #' The plus sign delimits stems. Decimal delimiter may be period or comma; spaces
-#' around `"+"` are ignored. Column names in `x` are coerced to lowercase at runtime,
-#' making matching case-insensitive. If `x` contains the default column names, the
-#' arguments `h`, `taxon`, `family`, `dead`, `su`, and `d` can be omitted.
+#' around "+" are ignored. Column names in \code{x} are coerced to lowercase at runtime,
+#' making matching case-insensitive. If \code{x} contains the default column names, the
+#' arguments \code{h}, \code{taxon}, \code{family}, \code{dead}, \code{su} and \code{d} can be omitted.
 #'
 #' Unbiased absolute density for the point-centered quarter method follows
 #' Pollard (1971) and Seber (1982).
 #'
-#' **Measurement units:** individual `cbh`/`dbh` in centimeters; trunk height and
+#' \strong{Measurement units:} individual "cbh"/"dbh" in centimeters; trunk height and
 #' point-to-individual distance in meters.
 #'
-#' @return An object of class `"param"` with two or four data frames:
-#' * `global`: total parameters and diversity indices. Sampled area in hectares (ha),
+#' @return An object of class \code{param} with two or four data frames:
+#' \itemize{
+#'   \item \code{data}: A \code{data.frame} containing the original community sample data,
+#'   added with a column of the individual basal area (ABi).
+#'   \item \code{global}: total parameters and diversity indices. Sampled area in hectares (ha),
 #'   total density in individuals/ha, total dominance in \eqn{m^2} \eqn{ha^{-1}} (basal area) or \eqn{m^3} \eqn{ha^{-1}}
-#'   (volume, when computed), and Shannon--Wiener `H'` in nats/individual (natural log).
-#' * `param`: taxon-level table with `N`, absolute/relative density (`ADe`, `RDe`),
-#'   absolute/relative frequency (`AFr`, `RFr`), absolute/relative dominance (`ADo`, `RDo`),
-#'   absolute/relative volume (`AVol`, `RVol`), Importance Value Index (`IV`),
-#'   and Cover Value Index (`CV`). Absolute parameters per hectare; relative parameters in \%.
-#' * If `family != NA`, two additional data frames listing number of individuals
-#'   (`ind.fam`) and number of species (`spp.fam`) per family.
+#'   (volume, when computed), and Shannon--Wiener H' in nats/individual (natural log).
+#'   \item \code{param}: taxon-level table with observed number of individuals (N), absolute/relative density (ADe, RDe),
+#'   absolute/relative frequency (AFr, RFr), absolute/relative dominance (ADo, RDo),
+#'   absolute/relative volume (AVol, RVol), Importance Value Index (IV),
+#'   and Cover Value Index (CV). Absolute parameters per hectare; relative parameters in percentage.
+#'   \item \code{family}: If \code{family != NA}, a table listing the number of individuals and the number of species
+#'   per family is presented.
+#'   \item \code{vars}: A \code{list} containing objects used in the functions \code{\link{AGB}}, \code{\link{stats}} and \code{\link{stratvol}}.
+#'   }
 #'
 #' @references
 #' Pollard, J. H. (1971). On distance estimators of density in randomly distributed forests.
@@ -75,7 +81,7 @@
 #' Seber, G. A. F. (1982). \emph{The Estimation of Animal Abundance and Related Parameters}.
 #' New York: Macmillan, pp. 41--45.
 #'
-#' @seealso [summary.param()], [plot.param()]
+#' @seealso \code{\link{summary.param}}, \code{\link{plot.param}}
 #'
 #' @examples
 #' ## Quadrat method
@@ -139,7 +145,7 @@ phytoparam <- function(x, measure.label=NULL, h="h", taxon="taxon", family="fami
   }
   measure.label <- tolower(measure.label)
 
-  # Define su if quadrat=F
+  # Define su if quadrat=FALSE
   if (!quadrat && identical(su, "quadrat")) su <- "point"
   # Validations
   if (!family %in% names(x) & !is.na(family)) stop("family is missing or misspelled")
@@ -177,7 +183,7 @@ phytoparam <- function(x, measure.label=NULL, h="h", taxon="taxon", family="fami
   if (rm.dead) # if the option is to remove dead plants from the data frame
   {
     x <- x[!filter, ] # remove rows with dead plants from the data frame
-    cat ("\n", sum(filter), "dead individuals removed from the dataset \n") # print the number of "dead" removed from the data frame
+    message(sum(filter), " dead individuals removed from the dataset.") # print the number of "dead" removed from the data frame
   }
   x[[su]] <- factor(x[[su]]) # coerce the sampling-unit column to factor
   x[[taxon]] <- factor(x[[taxon]]) # coerce the taxon column to factor
@@ -317,7 +323,7 @@ phytoparam <- function(x, measure.label=NULL, h="h", taxon="taxon", family="fami
   # *** Family-level statistics ***
 
   if(!is.na(family)) {
-    if(rm.dead == F)     xf <- x[!filter, ] else xf <- x
+    if(rm.dead == FALSE)     xf <- x[!filter, ] else xf <- x
     ind.fam<-table(xf[[family]])
     spp.fam <- table(xf[[family]], xf[[taxon]]) > 0
     spp.error <- colnames(spp.fam)[colSums(spp.fam)>1]
@@ -391,7 +397,7 @@ phytoparam <- function(x, measure.label=NULL, h="h", taxon="taxon", family="fami
       global <- data.frame(Parameter = global.var, Value = global.values)
     }
   }
-  table <- table[order(table$IV, decreasing=T), ]
+  table <- table[order(table$IV, decreasing=TRUE), ]
   rownames(table) <- seq(1, dim(table)[1])
   if(!is.na(family)){
     result <- list(vars = vars, data = x, global = global, family = table.fam, param = table)
@@ -409,14 +415,14 @@ phytoparam <- function(x, measure.label=NULL, h="h", taxon="taxon", family="fami
 
 #' Summarize global phytosociological parameters
 #'
-#' Display a concise summary of the global parameters computed by [phytoparam()].
+#' Display a concise summary of the global parameters computed by \code{\link{phytoparam}}.
 #' If family-level outputs are present (i.e., the string "N. of families" occurs
 #' in the first column of \code{object$global}), the first seven rows are shown;
 #' otherwise, the first six rows are shown.
 #'
 #'@encoding UTF-8
 #'
-#' @param object An object of class \code{"param"} returned by [phytoparam()].
+#' @param object An object of class \code{param} returned by \code{\link{phytoparam}}.
 #' @param ...    Ignored.
 #'
 #' @details Row names of \code{object$global} are removed before printing.
@@ -425,7 +431,7 @@ phytoparam <- function(x, measure.label=NULL, h="h", taxon="taxon", family="fami
 #' @return Used mainly for its side effect of printing to the console.
 #'   Invisibly returns the displayed \code{data.frame}.
 #'
-#' @seealso [phytoparam()], [plot.param()]
+#' @seealso \pkg{PhytoIn} (\code{\link{phytoparam}}, \code{\link{plot.param}}.
 #'
 #' @examples
 #' \donttest{
@@ -460,10 +466,10 @@ summary.param <- function(object, ...) {
 #' Plot relative phytosociological parameters by taxon
 #'
 #' Produce a stacked bar chart of relative dominance (RDo), relative frequency (RFr),
-#' and relative density (RDe) for each taxon contained in a \code{"param"} object returned
+#' and relative density (RDe) for each taxon contained in a \code{param} object returned
 #' by \code{\link{phytoparam}}. Taxa are ordered by the Importance Value (IV).
 #'
-#' @param x An object of class \code{"param"} (output of \code{\link{phytoparam}}) whose
+#' @param x An object of class \code{param} (output of \code{\link{phytoparam}}) whose
 #'   \code{$param} data frame contains at least the columns \code{Taxon}, \code{RDe}, \code{RFr}, \code{RDo}, and \code{IV}.
 #' @param theme A ggplot2 theme to apply. Either a character string naming a theme
 #'   constructor in \strong{ggplot2} (e.g., \code{"theme_light"}, \code{"theme_bw"}, \code{"theme_minimal"}),
@@ -475,7 +481,7 @@ summary.param <- function(object, ...) {
 #'
 #' @return A \code{ggplot} object.
 #'
-#' @seealso \code{\link{phytoparam}}, \code{\link{summary.param}}, and \strong{ggplot2}.
+#' @seealso \code{\link{phytoparam}}, \code{\link{summary.param}}, and \pkg{ggplot2}.
 #'
 #' @examples
 #' res <- phytoparam(x = quadrat.df, measure.label = "CBH", taxon = "Species",

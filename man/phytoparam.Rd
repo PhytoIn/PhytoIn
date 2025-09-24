@@ -23,62 +23,67 @@ phytoparam(
 )
 }
 \arguments{
-\item{x}{A `data.frame` containing the community sample data. See **Details**.}
+\item{x}{A \code{data.frame} containing the community sample data. See 'Details'.}
 
 \item{measure.label}{Name of the column representing the circumference/diameter at
-breast height. If omitted the function assumes the default names `"cbh"` or `"dbh"`
-for circumference or diameter at breast height, respectively (see `circumference`).}
+breast height. If omitted the function assumes the default names "cbh" or "dbh"
+for circumference or diameter at breast height, respectively (see \code{circumference}).}
 
-\item{h}{Name of the column representing trunk height. Default is `"h"`.}
+\item{h}{Name of the column representing trunk height. Default is "h".}
 
-\item{taxon}{Name of the column representing the sampled taxa. Default is `"taxon"`.
+\item{taxon}{Name of the column representing the sampled taxa. Default is "taxon".
 Use UTF-8 encoding; accents and special characters are not allowed.}
 
 \item{family}{Name of the column representing the family names of the sampled taxa.
-Default is `"family"`. Used to calculate the number of individuals and number of
-species per family. If you do not want these parameters, set `family = NA`.
-Use UTF-8 encoding; accents and special characters are not allowed.}
+Default is "family". Used to calculate the number of individuals and number of
+species per family. If you do not want these parameters, set \code{family = NA}.
+Use \code{UTF-8} encoding; accents and special characters are not allowed.}
 
-\item{dead}{String used to identify dead individuals. Default is `"dead"`.}
+\item{dead}{String used to identify dead individuals. Default is "dead".}
 
-\item{circumference}{Logical. If `TRUE` (default) circumference at breast height
-was measured; otherwise `dbh` is assumed.}
+\item{circumference}{Logical. If \code{TRUE} (default) circumference at breast height
+was measured; otherwise "dbh" is assumed.}
 
 \item{su}{Name of the column representing the sample-unit identifier.
-Default is `"quadrat"` for the quadrat method and `"point"` for the
+Default is "quadrat" for the quadrat method and "point" for the
 point-centered quarter method.}
 
-\item{height}{Logical. If `FALSE` (default) trunk volume is not calculated.}
+\item{height}{Logical. If \code{FALSE} (default) trunk volume is not calculated.}
 
-\item{quadrat}{Logical. If `TRUE` (default) data were sampled using the quadrat
-method; if `FALSE`, the point-centered quarter method is assumed.}
+\item{quadrat}{Logical. If \code{TRUE} (default) data were sampled using the quadrat
+method; if \code{FALSE}, the point-centered quarter method is assumed.}
 
 \item{su.size}{Numeric scalar giving the quadrat area (\eqn{m^2}); required only if
-`quadrat = TRUE`.}
+\code{quadrat = TRUE}.}
 
 \item{d}{Name of the column representing the point-to-tree distance; required only
-if `quadrat = FALSE`. Default is `"distance"`.}
+if \code{quadrat = FALSE}. Default is "distance".}
 
-\item{shape.factor}{Numeric in `(0, 1]` indicating the trunk shape.
-`1` assumes a perfect cylinder.}
+\item{shape.factor}{Numeric value between in 0 and 1, indicating the trunk shape.
+Value \code{1} assumes a perfect cylinder.}
 
-\item{rm.dead}{Logical. If `FALSE` (default) phytosociological parameters for dead
+\item{rm.dead}{Logical. If \code{FALSE} (default) phytosociological parameters for dead
 individuals are calculated.}
 
-\item{check.spelling}{Logical. If `TRUE` (default) taxon names are checked for
+\item{check.spelling}{Logical. If \code{TRUE} (default) taxon names are checked for
 misspelling.}
 }
 \value{
-An object of class `"param"` with two or four data frames:
-* `global`: total parameters and diversity indices. Sampled area in hectares (ha),
+An object of class \code{param} with two or four data frames:
+\itemize{
+  \item \code{data}: A \code{data.frame} containing the original community sample data,
+  added with a column of the individual basal area (ABi).
+  \item \code{global}: total parameters and diversity indices. Sampled area in hectares (ha),
   total density in individuals/ha, total dominance in \eqn{m^2} \eqn{ha^{-1}} (basal area) or \eqn{m^3} \eqn{ha^{-1}}
-  (volume, when computed), and Shannon--Wiener `H'` in nats/individual (natural log).
-* `param`: taxon-level table with `N`, absolute/relative density (`ADe`, `RDe`),
-  absolute/relative frequency (`AFr`, `RFr`), absolute/relative dominance (`ADo`, `RDo`),
-  absolute/relative volume (`AVol`, `RVol`), Importance Value Index (`IV`),
-  and Cover Value Index (`CV`). Absolute parameters per hectare; relative parameters in \%.
-* If `family != NA`, two additional data frames listing number of individuals
-  (`ind.fam`) and number of species (`spp.fam`) per family.
+  (volume, when computed), and Shannon--Wiener H' in nats/individual (natural log).
+  \item \code{param}: taxon-level table with observed number of individuals (N), absolute/relative density (ADe, RDe),
+  absolute/relative frequency (AFr, RFr), absolute/relative dominance (ADo, RDo),
+  absolute/relative volume (AVol, RVol), Importance Value Index (IV),
+  and Cover Value Index (CV). Absolute parameters per hectare; relative parameters in percentage.
+  \item \code{family}: If \code{family != NA}, a table listing the number of individuals and the number of species
+  per family is presented.
+  \item \code{vars}: A \code{list} containing objects used in the functions \code{\link{AGB}}, \code{\link{stats}} and \code{\link{stratvol}}.
+  }
 }
 \description{
 Estimate the phytosociological parameters and the Shannon--Wiener, Pielou, and
@@ -86,25 +91,26 @@ Simpson diversity indices, using the quadrat or the point-centered quarter metho
 }
 \details{
 The function estimates phytosociological parameters for tree communities sampled
-by quadrat or point-centered quarter methods (`quadrat = TRUE` or `FALSE`).
+by quadrat or point-centered quarter methods (\code{quadrat = TRUE} or \code{FALSE},
+respectively).
 
-For the **quadrat** method, `x` must contain columns for sample-unit labels,
-taxon names, and `cbh` or `dbh` measurements for each sampled tree. Additionally,
+For the quadrat method, \code{x} must contain columns for sample-unit labels,
+taxon names, and "cbh" or "dbh" measurements for each sampled tree. Additionally,
 trunk height and family can be included to estimate volume and family-level parameters.
 
-For the **point-centered quarter** method, `x` must contain (in addition to the
+For the point-centered quarter method, \code{x} must contain (in addition to the
 mandatory quadrat columns) a column for the distance from the point to each individual.
 
-The `cbh`/`dbh` column accepts multiple-stem notation, e.g. `"17.1+8+5.7+6.8"`.
+The "cbh"/"dbh" column accepts multiple-stem notation, e.g. "17.1+8+5.7+6.8".
 The plus sign delimits stems. Decimal delimiter may be period or comma; spaces
-around `"+"` are ignored. Column names in `x` are coerced to lowercase at runtime,
-making matching case-insensitive. If `x` contains the default column names, the
-arguments `h`, `taxon`, `family`, `dead`, `su`, and `d` can be omitted.
+around "+" are ignored. Column names in \code{x} are coerced to lowercase at runtime,
+making matching case-insensitive. If \code{x} contains the default column names, the
+arguments \code{h}, \code{taxon}, \code{family}, \code{dead}, \code{su} and \code{d} can be omitted.
 
 Unbiased absolute density for the point-centered quarter method follows
 Pollard (1971) and Seber (1982).
 
-**Measurement units:** individual `cbh`/`dbh` in centimeters; trunk height and
+\strong{Measurement units:} individual "cbh"/"dbh" in centimeters; trunk height and
 point-to-individual distance in meters.
 }
 \examples{
@@ -158,5 +164,5 @@ Seber, G. A. F. (1982). \emph{The Estimation of Animal Abundance and Related Par
 New York: Macmillan, pp. 41--45.
 }
 \seealso{
-[summary.param()], [plot.param()]
+\code{\link{summary.param}}, \code{\link{plot.param}}
 }

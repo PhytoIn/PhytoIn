@@ -13,7 +13,7 @@ rarefaction(
   prob = 0.95,
   xlab,
   ylab,
-  plot = T,
+  plot = TRUE,
   theme = "theme_classic"
 )
 }
@@ -55,7 +55,7 @@ A data frame with the following components:
   \item{lower}{Lower bound of the confidence interval.}
   \item{upper}{Upper bound of the confidence interval.}
 
-If \code{plot = TRUE}, a rarefaction curve with confidence ribbons is produced using ggplot2.
+If \code{plot = TRUE}, a rarefaction curve with confidence ribbons is produced using \pkg{ggplot2}.
 }
 \description{
 Performs a rarefaction analysis, a method widely used in ecology to estimate species richness

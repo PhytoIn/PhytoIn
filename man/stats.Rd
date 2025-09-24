@@ -7,7 +7,7 @@
 stats(obj, area.tot, prob = 0.95, shape.factor = 1, rm.dead = FALSE)
 }
 \arguments{
-\item{obj}{An object of class \code{"param"} created by \code{phytoparam}.
+\item{obj}{An object of class \code{param} created by \code{\link{phytoparam}}.
 Must contain the raw data (\code{obj$data}), variable mappings (\code{obj$vars}),
 and global inventory metadata (\code{obj$global}).}
 

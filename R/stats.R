@@ -5,7 +5,7 @@
 #' with uncertainty (density, volume, basal area), and extrapolates results to the
 #' total habitat area, including sample-size requirements for target permissible errors.
 #'
-#' @param obj An object of class \code{"param"} created by \code{phytoparam}.
+#' @param obj An object of class \code{param} created by \code{\link{phytoparam}}.
 #'   Must contain the raw data (\code{obj$data}), variable mappings (\code{obj$vars}),
 #'   and global inventory metadata (\code{obj$global}).
 #' @param area.tot Total habitat area (in hectares) to which estimates will be
@@ -98,7 +98,7 @@ stats <- function(obj, area.tot, prob = 0.95, shape.factor=1, rm.dead=FALSE)
   if (rm.dead)
   {
     x <- x[!filter, ] # remove lines with dead trees
-    cat ("\n", sum(filter), "dead individuals removed from the dataset \n")
+    message (sum(filter), " dead individuals removed from the dataset.")
   }
 
   x$Vi <- x$abi * x[[h]] * shape.factor   # Volume individual
@@ -116,7 +116,7 @@ stats <- function(obj, area.tot, prob = 0.95, shape.factor=1, rm.dead=FALSE)
     De.su <- 10000/point.area
   }
   N.su <- length(unique(x[[su]])) # Number of sample units
-  t.value <- qt((1 - prob)/2, (N.su-1), lower.tail = F)
+  t.value <- qt((1 - prob)/2, (N.su-1), lower.tail = FALSE)
   N.su.area <- area.tot/su.size  # Number of sample units in the total area
   perc.invent<- area/area.tot*100 # Percentage of total area that is inventoried
 
@@ -182,19 +182,19 @@ stats <- function(obj, area.tot, prob = 0.95, shape.factor=1, rm.dead=FALSE)
 
   inventory <- data.frame(Stat = c("Total area (ha)", "n. sample units", "N. su in total area",
                                    "su area (ha)", "Inventoried area", "% inventoried area"),
-                          Values = format(round(c(area.tot, N.su, N.su.area, su.size, area, perc.invent), 4), scientifc=F))
+                          Values = format(round(c(area.tot, N.su, N.su.area, su.size, area, perc.invent), 4), scientifc=FALSE))
 
   ha <- data.frame(Stat = c("Mean", "Variance", "Standard deviation", "Standard error", "Coefficient of Variation",
                             "Absolut sample error", "Relative sample error", "Lower limit (ha)", "Upper limit (ha)"),
-                   ADe = format(round(c(De, De.sd^2, De.sd, De.se, De.CV, Abs.De.error, Rel.De.error, De.lower.lim, De.upper.lim), 2), scientifc=F),
-                   AVol = format(round(c(Vol, Vol.sd^2, Vol.sd, Vol.se, Vol.CV, Abs.Vol.error, Rel.Vol.error, Vol.lower.lim, Vol.upper.lim), 2), scientifc=F),
-                   ABA = format(round(c(AB, AB.sd^2, AB.sd, AB.se, AB.CV, Abs.AB.error, Rel.AB.error, AB.lower.lim, AB.upper.lim), 2), scientifc=F))
+                   ADe = format(round(c(De, De.sd^2, De.sd, De.se, De.CV, Abs.De.error, Rel.De.error, De.lower.lim, De.upper.lim), 2), scientifc=FALSE),
+                   AVol = format(round(c(Vol, Vol.sd^2, Vol.sd, Vol.se, Vol.CV, Abs.Vol.error, Rel.Vol.error, Vol.lower.lim, Vol.upper.lim), 2), scientifc=FALSE),
+                   ABA = format(round(c(AB, AB.sd^2, AB.sd, AB.se, AB.CV, Abs.AB.error, Rel.AB.error, AB.lower.lim, AB.upper.lim), 2), scientifc=FALSE))
 
   population <- data.frame(Stat = c("Mean", "Lower limit", "Upper limit", "N. of su (10% permissible error)",
                                     "N. of su (20% permissible error)"),
-                           ADe = format(round(c(pop.De, pop.De.lower.lim, pop.De.upper.lim, De.error10, De.error20), 2), scientifc=F),
-                           AVol = format(round(c(pop.Vol, pop.Vol.lower.lim, pop.Vol.upper.lim, Vol.error10, Vol.error20)), 2, scientifc=F),
-                           ABA = format(round(c(pop.AB, pop.AB.lower.lim, pop.AB.upper.lim, AB.error10, AB.error20), 2), scientifc=F))
+                           ADe = format(round(c(pop.De, pop.De.lower.lim, pop.De.upper.lim, De.error10, De.error20), 2), scientifc=FALSE),
+                           AVol = format(round(c(pop.Vol, pop.Vol.lower.lim, pop.Vol.upper.lim, Vol.error10, Vol.error20)), 2, scientifc=FALSE),
+                           ABA = format(round(c(pop.AB, pop.AB.lower.lim, pop.AB.upper.lim, AB.error10, AB.error20), 2), scientifc=FALSE))
 
   res <- list(inventory = inventory, ha = ha, population = population)
   return(res)

@@ -37,6 +37,8 @@
 #' @param correct.taxon Logical; if \code{TRUE} (default) taxon names are standardized via TNRS.
 #' @param sort Logical; if \code{TRUE} (default) taxa are sorted by AGB.
 #' @param decreasing Logical; if \code{TRUE} (default) sorting is in decreasing order.
+#' @param cache Logical or \code{NULL}; if \code{TRUE} the function with write and use a cache to reduce online search of taxa names.
+#'  (\code{NULL} means use cache but clear it first). Default is \code{cache = FALSE}.
 #' @param long Logical; if \code{FALSE} (default) the \code{$tree} component is omitted (see \strong{Value}).
 #'
 #' @return An object of class \code{"biomass"} with up to four components:
@@ -93,7 +95,8 @@
 #' @export
 
 AGB <- function(x, measure.label, h, taxon="taxon", dead="dead", circumference=TRUE, su="quadrat", area, coord,
-                rm.dead=TRUE, check.spelling=FALSE, correct.taxon=TRUE, sort=TRUE, decreasing=TRUE, long=FALSE)
+                rm.dead=TRUE, check.spelling=FALSE, correct.taxon=TRUE, sort=TRUE, decreasing=TRUE, cache=FALSE,
+                long=FALSE)
 
 {
   #  if(all((.packages())!= "BIOMASS")) require(BIOMASS)
@@ -134,15 +137,15 @@ AGB <- function(x, measure.label, h, taxon="taxon", dead="dead", circumference=T
   {
     filter = tolower(x[[taxon]]) == tolower(dead) # test which individuals are "dead"
     x <- x[!filter, ] # remove rows containing dead plants from the data frame
-    #    cat ("\n", sum(filter), "dead individuals removed from the dataset \n") # display a message on screen with the number of "dead" removed from the data frame
+    #    message("\n", sum(filter), "dead individuals removed from the dataset \n") # display a message on screen with the number of "dead" removed from the data frame
     n.dead <- sum(filter, na.rm = TRUE)
     if (n.dead > 0) message(n.dead, " dead individuals removed from the dataset.")
   }
 
   # Split taxon in genus and species
   x[[taxon]] <- gsub(" +", " ", x[[taxon]])
-  #  list<-strsplit(x[[taxon]], split=" ", fixed=T)
-  #  taxon.names<-as.data.frame(matrix(unlist(list), ncol=2, byrow = T))
+  #  list<-strsplit(x[[taxon]], split=" ", fixed=TRUE)
+  #  taxon.names<-as.data.frame(matrix(unlist(list), ncol=2, byrow = TRUE))
   #  if(dim(taxon.names)[1]!=dim(x)[1]) stop("Check multiple spaces in the taxon column")
   #  colnames(taxon.names)<-c("genus","species")
 
@@ -160,6 +163,7 @@ AGB <- function(x, measure.label, h, taxon="taxon", dead="dead", circumference=T
   # Cache robusto, sem 'rappdirs'
   if (isTRUE(correct.taxon)) {
     # Definir diretorio de cache (compativel com R >= 4.0)
+    if (isTRUE(cache) || is.null(cache)) {
     cache_dir <- tryCatch({
       if (getRversion() >= "4.0.0") {
         tools::R_user_dir("PhytoIn", which = "cache")
@@ -173,6 +177,7 @@ AGB <- function(x, measure.label, h, taxon="taxon", dead="dead", circumference=T
     }
 
     BIOMASS::createCache(path = cache_dir)
+    }
 
     # So executa correctTaxo se httr2 estiver disponivel
     if (!requireNamespace("httr2", quietly = TRUE)) {
@@ -181,7 +186,7 @@ AGB <- function(x, measure.label, h, taxon="taxon", dead="dead", circumference=T
       taxon.corrected <- BIOMASS::correctTaxo(
         genus   = taxon.names$genus,
         species = taxon.names$species,
-        useCache = TRUE
+        useCache = cache # Uses the value of argument cache
       )
       taxon.names <- data.frame(
         genus   = taxon.corrected$genusCorrected,

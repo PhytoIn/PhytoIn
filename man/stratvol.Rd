@@ -41,9 +41,11 @@ the inventoried area stored in \code{obj}.
   Summed volumes per class are divided by the inventoried area (in hectares) retrieved from \code{obj$global}, yielding \eqn{m^3} \eqn{ha^{-1}}.
 }
 \note{
-- Units: Supply \code{classes} in centimeters. The function assumes \code{ABi} and \code{h}
+\itemize{
+  \item \strong{Units:} Supply size classes in centimeters. The function assumes \code{ABi} and \code{h}
   yield volume in cubic meters before per-hectare standardization.
-- Class limits: Class breakpoints should not exceed the maximum observed DBH; otherwise the function stops with an error.
+  \item \strong{Class limits:} Class breakpoints should not exceed the maximum observed DBH; otherwise the function stops with an error.
+}
 }
 \examples{
 # Creating the 'param' object with phytosociological parameters

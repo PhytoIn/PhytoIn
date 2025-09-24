@@ -46,7 +46,7 @@
 #'   \item{lower}{Lower bound of the confidence interval.}
 #'   \item{upper}{Upper bound of the confidence interval.}
 #'
-#' If \code{plot = TRUE}, a rarefaction curve with confidence ribbons is produced using ggplot2.
+#' If \code{plot = TRUE}, a rarefaction curve with confidence ribbons is produced using \pkg{ggplot2}.
 #'
 #' @author Rodrigo Augusto Santinelo Pereira \email{raspereira@usp.br}
 #'
@@ -135,9 +135,9 @@
 #' @importFrom ggplot2 ggplot geom_line geom_ribbon xlab ylab aes theme_classic
 #' @export
 
-rarefaction <- function(formula, data, x, step = 1, points = NULL, prob = 0.95, xlab, ylab, plot=T, theme = "theme_classic")
+rarefaction <- function(formula, data, x, step = 1, points = NULL, prob = 0.95, xlab, ylab, plot=TRUE, theme = "theme_classic")
 {
-if(!missing(points)&length(points)==1) plot <- F
+if(!missing(points)&length(points)==1) plot <- FALSE
 if(!missing(formula)) {
   fm <- as.formula(formula)
   vars <- all.vars(fm)
@@ -152,7 +152,7 @@ if(!missing(formula)) {
   dead<-vars[3]
   filter = data[[taxon]] == dead
   data <- data[!filter, ]
-  cat ("\n", sum(filter), "dead individuals removed from the dataset \n","\n") # exibe na tela uma mensagem com o n mero de "mortas" removidas do data frame
+  message(sum(filter), " dead individuals removed from the dataset.") # exibe na tela uma mensagem com o n mero de "mortas" removidas do data frame
   }
 x<-table(data[[su]], data[[taxon]])
 }
@@ -196,7 +196,7 @@ upper<- s + qnorm(alpha) * sqrt(V)
 
 result <- as.data.frame(cbind(n, s, lower, upper))
 
-	if (plot==T){
+	if (plot==TRUE){
 #        if(all((.packages())!= "ggplot2")) library(ggplot2)
 
 	  ## map theme from string
