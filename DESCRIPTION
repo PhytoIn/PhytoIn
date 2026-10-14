@@ -1,7 +1,7 @@
 Package: PhytoIn
 Type: Package
 Title: Vegetation Analysis and Forest Inventory
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: 
     person("Rodrigo Augusto Santinelo", "Pereira", 
            email = "raspereira@usp.br", 
@@ -22,7 +22,6 @@ Depends:
     R (>= 3.5.0)
 Imports: 
     ggplot2,
-    ggforce,
     packcircles,
     BIOMASS,
     scales,

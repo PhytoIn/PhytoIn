@@ -34,10 +34,12 @@
 #'             Required when \code{h} is missing in \code{x}.
 #' @param rm.dead Logical; if \code{TRUE} (default) dead individuals are removed prior to biomass calculation.
 #' @param check.spelling Logical; if \code{TRUE}, near-matching taxon names are flagged for correction. Default \code{FALSE}.
-#' @param correct.taxon Logical; if \code{TRUE} (default) taxon names are standardized via TNRS.
+#' @param correct.taxon Logical; if \code{TRUE}, taxon names are standardized via the online TNRS service
+#'  (internet connection required). If the service cannot be reached, a warning is issued and the taxon names
+#'  are used as provided. Default \code{FALSE} (no internet access).
 #' @param sort Logical; if \code{TRUE} (default) taxa are sorted by AGB.
 #' @param decreasing Logical; if \code{TRUE} (default) sorting is in decreasing order.
-#' @param cache Logical or \code{NULL}; if \code{TRUE} the function with write and use a cache to reduce online search of taxa names.
+#' @param cache Logical or \code{NULL}; if \code{TRUE} the function will write and use a cache to reduce online search of taxa names.
 #'  (\code{NULL} means use cache but clear it first). Default is \code{cache = FALSE}.
 #' @param long Logical; if \code{FALSE} (default) the \code{$tree} component is omitted (see \strong{Value}).
 #'
@@ -62,7 +64,7 @@
 #' resul1 <- AGB(
 #'   data, measure.label = "CBH", h = "h", taxon = "Species", dead = "Morta",
 #'   circumference = TRUE, su = "Plot", area = 0.0625, rm.dead = TRUE,
-#'   check.spelling = FALSE, correct.taxon = TRUE, sort = TRUE,
+#'   check.spelling = FALSE, correct.taxon = FALSE, sort = TRUE,
 #'   decreasing = TRUE, long = TRUE
 #' )
 #' head(resul1$tree)
@@ -74,12 +76,19 @@
 #' colnames(quadrat.default) <- c("quadrat", "family", "taxon", "cbh", "h")
 #'
 #' Resul2 <- AGB(x = quadrat.default, measure.label = "cbh",
-#'               circumference = TRUE, h = "h", dead = "Morta", area = 0.0625)
+#'               circumference = TRUE, h = "h", dead = "Morta", area = 0.0625,
+#'               correct.taxon = FALSE)
 #' head(Resul2$tree)
 #' Resul2$taxon
 #' Resul2$total
 #' Resul2$WD.level
 #' \dontrun{
+#' # Taxon standardization via TNRS and height estimation from coordinates
+#' # require an internet connection
+#' Resul4 <- AGB(data, measure.label = "CBH", h = "h", taxon = "Species", dead = "Morta",
+#'               circumference = TRUE, su = "Plot", area = 0.0625,
+#'               correct.taxon = TRUE, cache = TRUE)
+#'
 #' Resul3 <- AGB(data, measure.label = "CBH", taxon = "Species", dead = "Morta",
 #'               circumference = TRUE, su = "Plot", area = 0.0625,
 #'               coord = c(-47.85, -21.17))
@@ -95,7 +104,7 @@
 #' @export
 
 AGB <- function(x, measure.label, h, taxon="taxon", dead="dead", circumference=TRUE, su="quadrat", area, coord,
-                rm.dead=TRUE, check.spelling=FALSE, correct.taxon=TRUE, sort=TRUE, decreasing=TRUE, cache=FALSE,
+                rm.dead=TRUE, check.spelling=FALSE, correct.taxon=FALSE, sort=TRUE, decreasing=TRUE, cache=FALSE,
                 long=FALSE)
 
 {
@@ -164,13 +173,16 @@ AGB <- function(x, measure.label, h, taxon="taxon", dead="dead", circumference=T
   if (isTRUE(correct.taxon)) {
     # Definir diretorio de cache (compativel com R >= 4.0)
     if (isTRUE(cache) || is.null(cache)) {
+    # The cache is only created on explicit user request (cache = TRUE or NULL).
+    # R < 4.0.0 has no tools::R_user_dir(); fall back to the session tempdir()
+    # (never to the user's home directory).
     cache_dir <- tryCatch({
       if (getRversion() >= "4.0.0") {
         tools::R_user_dir("PhytoIn", which = "cache")
       } else {
-        file.path(path.expand("~"), ".cache", "PhytoIn")
+        file.path(tempdir(), "PhytoIn")
       }
-    }, error = function(e) tempdir())
+    }, error = function(e) file.path(tempdir(), "PhytoIn"))
 
     if (!dir.exists(cache_dir)) {
       dir.create(cache_dir, recursive = TRUE, showWarnings = FALSE)
@@ -183,16 +195,30 @@ AGB <- function(x, measure.label, h, taxon="taxon", dead="dead", circumference=T
     if (!requireNamespace("httr2", quietly = TRUE)) {
       warning("Skipping taxon standardization: package 'httr2' not available.", call. = FALSE)
     } else {
-      taxon.corrected <- BIOMASS::correctTaxo(
-        genus   = taxon.names$genus,
-        species = taxon.names$species,
-        useCache = cache # Uses the value of argument cache
+      # correctTaxo() queries the TNRS web service. If the service cannot be
+      # reached (no internet connection, service down or changed), fail
+      # gracefully: warn and keep the taxon names as provided.
+      taxon.corrected <- tryCatch(
+        BIOMASS::correctTaxo(
+          genus   = taxon.names$genus,
+          species = taxon.names$species,
+          useCache = cache # Uses the value of argument cache
+        ),
+        error = function(e) e
       )
-      taxon.names <- data.frame(
-        genus   = taxon.corrected$genusCorrected,
-        species = taxon.corrected$speciesCorrected,
-        stringsAsFactors = FALSE
-      )
+      tnrs.ok <- is.data.frame(taxon.corrected) &&
+        all(c("genusCorrected", "speciesCorrected") %in% names(taxon.corrected)) &&
+        nrow(taxon.corrected) == nrow(taxon.names)
+      if (tnrs.ok) {
+        taxon.names <- data.frame(
+          genus   = taxon.corrected$genusCorrected,
+          species = taxon.corrected$speciesCorrected,
+          stringsAsFactors = FALSE
+        )
+      } else {
+        warning("Taxon standardization (TNRS) failed or the online service is ",
+                "unavailable; using the taxon names as provided.", call. = FALSE)
+      }
     }
   }
   #####################
