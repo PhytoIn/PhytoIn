@@ -81,7 +81,7 @@
 #'        alpha = 0.4, cex.radius = 2, legend = FALSE,
 #'        long = FALSE, ind.coord = FALSE)
 #'
-#' @importFrom ggplot2 ggplot theme element_blank aes scale_x_continuous scale_y_continuous coord_fixed geom_polygon
+#' @importFrom ggplot2 ggplot theme element_blank aes scale_x_continuous scale_y_continuous coord_fixed geom_polygon labs
 #' @importFrom packcircles circleRepelLayout
 #' @export
 
@@ -173,7 +173,8 @@ BAplot <- function(formula, data, taxon="taxon", circumference=TRUE, quadrat.siz
       geom_polygon(aes(x = x, y = y, group = id, fill = taxon, color = taxon), alpha = alpha, data = circles) +
       scale_x_continuous(breaks = grid.x) +
       scale_y_continuous(breaks = grid.y) +
-      coord_fixed()
+      coord_fixed() +
+      labs(x = NULL, y = NULL)   # no axis titles, as in previous versions
     print(map)
   } else {
     map<-ggplot2::ggplot() +
@@ -181,7 +182,8 @@ BAplot <- function(formula, data, taxon="taxon", circumference=TRUE, quadrat.siz
       geom_polygon(aes(x = x, y = y, group = id), fill = col, color = NA, alpha = alpha, show.legend = FALSE, data = circles) +
       scale_x_continuous(breaks = grid.x) +
       scale_y_continuous(breaks = grid.y) +
-      coord_fixed()
+      coord_fixed() +
+      labs(x = NULL, y = NULL)   # no axis titles, as in previous versions
     print(map)
   }
   if(long) return(res.plot)
