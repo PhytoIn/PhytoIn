@@ -1,3 +1,18 @@
+# PhytoIn 0.2.1
+
+- AGB(): the default of `correct.taxon` is now `FALSE`, so AGB() does not access the
+  internet unless requested. Use `correct.taxon = TRUE` to standardize taxon names
+  with the online TNRS service (previous default).
+- AGB(): taxon standardization via the online TNRS service (`correct.taxon = TRUE`)
+  now fails gracefully. If the service cannot be reached, a warning is issued and the
+  taxon names are used as provided, instead of stopping with an error.
+- AGB(): the optional cache directory no longer falls back to the user's home directory
+  (R < 4.0.0 now uses the session `tempdir()`); the cache is created only on request
+  (`cache = TRUE` or `NULL`).
+- AGB(): examples that run during checks no longer require an internet connection
+  (`correct.taxon = FALSE`); the online example is wrapped in `\dontrun{}`.
+- Documentation of `correct.taxon` and `cache` clarified.
+
 # PhytoIn 0.2.0
 
 - New function summary.param() (S3) with concise and robust output.

@@ -16,7 +16,7 @@ AGB(
   coord,
   rm.dead = TRUE,
   check.spelling = FALSE,
-  correct.taxon = TRUE,
+  correct.taxon = FALSE,
   sort = TRUE,
   decreasing = TRUE,
   cache = FALSE,
@@ -47,13 +47,15 @@ Required when \code{h} is missing in \code{x}.}
 
 \item{check.spelling}{Logical; if \code{TRUE}, near-matching taxon names are flagged for correction. Default \code{FALSE}.}
 
-\item{correct.taxon}{Logical; if \code{TRUE} (default) taxon names are standardized via TNRS.}
+\item{correct.taxon}{Logical; if \code{TRUE}, taxon names are standardized via the online TNRS service
+(internet connection required). If the service cannot be reached, a warning is issued and the taxon names
+are used as provided. Default \code{FALSE} (no internet access).}
 
 \item{sort}{Logical; if \code{TRUE} (default) taxa are sorted by AGB.}
 
 \item{decreasing}{Logical; if \code{TRUE} (default) sorting is in decreasing order.}
 
-\item{cache}{Logical or \code{NULL}; if \code{TRUE} the function with write and use a cache to reduce online search of taxa names.
+\item{cache}{Logical or \code{NULL}; if \code{TRUE} the function will write and use a cache to reduce online search of taxa names.
 (\code{NULL} means use cache but clear it first). Default is \code{cache = FALSE}.}
 
 \item{long}{Logical; if \code{FALSE} (default) the \code{$tree} component is omitted (see \strong{Value}).}
@@ -98,7 +100,7 @@ head(data)
 resul1 <- AGB(
   data, measure.label = "CBH", h = "h", taxon = "Species", dead = "Morta",
   circumference = TRUE, su = "Plot", area = 0.0625, rm.dead = TRUE,
-  check.spelling = FALSE, correct.taxon = TRUE, sort = TRUE,
+  check.spelling = FALSE, correct.taxon = FALSE, sort = TRUE,
   decreasing = TRUE, long = TRUE
 )
 head(resul1$tree)
@@ -110,12 +112,19 @@ quadrat.default <- quadrat.df
 colnames(quadrat.default) <- c("quadrat", "family", "taxon", "cbh", "h")
 
 Resul2 <- AGB(x = quadrat.default, measure.label = "cbh",
-              circumference = TRUE, h = "h", dead = "Morta", area = 0.0625)
+              circumference = TRUE, h = "h", dead = "Morta", area = 0.0625,
+              correct.taxon = FALSE)
 head(Resul2$tree)
 Resul2$taxon
 Resul2$total
 Resul2$WD.level
 \dontrun{
+# Taxon standardization via TNRS and height estimation from coordinates
+# require an internet connection
+Resul4 <- AGB(data, measure.label = "CBH", h = "h", taxon = "Species", dead = "Morta",
+              circumference = TRUE, su = "Plot", area = 0.0625,
+              correct.taxon = TRUE, cache = TRUE)
+
 Resul3 <- AGB(data, measure.label = "CBH", taxon = "Species", dead = "Morta",
               circumference = TRUE, su = "Plot", area = 0.0625,
               coord = c(-47.85, -21.17))
