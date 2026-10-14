@@ -24,14 +24,21 @@ Changes in version 0.2.1 (the archived version was 0.2.0):
 
 ## Test environments
 
-* (to be filled in with the actual results: GitHub Actions windows/macOS/ubuntu,
-  R release and devel, with --as-cran and --run-donttest; win-builder devel)
+* GitHub Actions, R CMD check --as-cran --run-donttest:
+  - windows-latest: R 4.6.1 and R-devel (2026-10-13 r90668)
+  - macos-latest: R 4.6.1
+  - ubuntu-latest: R-devel (2026-10-12 r90666), R 4.6.1 and R 4.5.3
+  All: Status OK.
+* win-builder: R 4.6.1 (1 NOTE, see below).
 
 ## R CMD check results
 
 0 errors | 0 warnings | 1 note
 
-* This is a resubmission of an archived package (CRAN incoming feasibility NOTE).
-* Possibly misspelled words in DESCRIPTION (DBH, phytosociological, quadrat, FAO,
-  IBGE, Heringer, ...) are technical terms, acronyms, author names and the
-  Portuguese title of a cited reference; they are correct.
+* checking CRAN incoming feasibility ... NOTE
+  - New submission / Package was archived on CRAN: this is the resubmission
+    of the archived package, as explained above.
+  - Possibly misspelled words in DESCRIPTION (DBH, FAO, Heringer, IBGE,
+    Phytosociology, al, et, brasileira, da, phytosociological, quadrat, ...):
+    these are technical terms, acronyms, author names and words of the
+    Portuguese title of a cited reference; they are correct.
