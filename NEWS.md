@@ -1,5 +1,7 @@
 # PhytoIn 0.2.1
 
+- AGB() examples use a single data.table thread (data.table is used internally by
+  'BIOMASS'), so that CPU time does not exceed elapsed time during checks.
 - Removed the dependency on 'ggforce'. BAplot() now draws the basal-area circles as
   polygons with ggplot2::geom_polygon(); circle positions are still arranged with
   'packcircles', so maps are unchanged.
