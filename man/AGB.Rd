@@ -94,6 +94,10 @@ in \code{x} are coerced to lower case at runtime, making the function case-insen
 Measurement units: CBH/DBH in centimeters; height in meters.
 }
 \examples{
+\dontshow{
+# BIOMASS uses data.table internally: use a single thread during checks
+.old_dt_threads <- data.table::setDTthreads(1)
+}
 data <- quadrat.df
 head(data)
 \donttest{
@@ -133,6 +137,7 @@ Resul3$total
 Resul3$WD.level
 }
 }
+\dontshow{data.table::setDTthreads(.old_dt_threads)}
 }
 \references{
 Boyle, B. et al. (2013) \emph{BMC Bioinformatics} 14:16.\cr

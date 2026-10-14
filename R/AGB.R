@@ -58,6 +58,10 @@
 #' Zanne, A.E. et al. (2009) Global wood density database. Dryad.\cr
 #'
 #' @examples
+#' \dontshow{
+#' # BIOMASS uses data.table internally: use a single thread during checks
+#' .old_dt_threads <- data.table::setDTthreads(1)
+#' }
 #' data <- quadrat.df
 #' head(data)
 #' \donttest{
@@ -97,6 +101,7 @@
 #' Resul3$WD.level
 #' }
 #' }
+#' \dontshow{data.table::setDTthreads(.old_dt_threads)}
 #' @seealso \pkg{BIOMASS} (\code{\link[BIOMASS]{getWoodDensity}},
 #'   \code{\link[BIOMASS]{computeAGB}}, \code{\link[BIOMASS]{correctTaxo}})
 #'

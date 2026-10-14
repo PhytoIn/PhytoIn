@@ -1,3 +1,18 @@
+## Resubmission
+
+This is a resubmission. The previous submission of PhytoIn 0.2.1 (2026-10-14) was
+rejected by the incoming checks because of a NOTE in the additional "donttest"
+check:
+
+    Examples with CPU time > 2.5 times elapsed time
+         user system elapsed ratio
+    AGB 1.737  0.046   0.547  3.26
+
+AGB() calls BIOMASS::getWoodDensity(), which uses 'data.table'; data.table runs
+in parallel by default. The AGB() examples now set a single data.table thread
+(data.table::setDTthreads(1) in \dontshow{}, restored at the end), and
+'data.table' was added to Suggests. No other change was made.
+
 ## Resubmission of an archived package
 
 PhytoIn was archived on 2026-09-15 ("policy violation"). The maintainer did not

@@ -28,6 +28,7 @@ Imports:
     utils,
     stats
 Suggests:
+    data.table,
     httr2,
     spelling
 License: GPL-3
