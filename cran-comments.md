@@ -31,7 +31,7 @@ Changes in version 0.2.1 (the archived version was 0.2.0):
   - macos-latest: R 4.6.1
   - ubuntu-latest: R-devel (2026-10-12 r90666), R 4.6.1 and R 4.5.3
   All: Status OK.
-* win-builder: R 4.6.1 (1 NOTE, see below).
+* win-builder: R-devel (2026-10-13 r90668) and R 4.6.1: 1 NOTE (see below).
 
 ## R CMD check results
 
