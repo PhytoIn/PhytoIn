@@ -74,7 +74,8 @@ to the uniform distribution.
 \details{
 \code{BAplot} uses the function \code{circleRepelLayout()} from the \pkg{packcircles} package
 to rearrange circle coordinates to avoid overlapping. The minimum distance allowed among trees
-is 1 meter. The packages \pkg{ggforce} and \pkg{ggplot2} are used to draw the map.
+is 1 meter. Circle positions within quadrats are arranged with \pkg{packcircles} to avoid overlap, and the
+map is drawn with \pkg{ggplot2}.
 
 The data frame passed to the \code{data} argument must include two columns indicating x and y
 coordinates of each quadrat that the tree belongs or the actual tree coordinates. If actual

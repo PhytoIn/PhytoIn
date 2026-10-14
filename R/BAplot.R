@@ -34,7 +34,8 @@
 #' @details
 #' \code{BAplot} uses the function \code{circleRepelLayout()} from the \pkg{packcircles} package
 #' to rearrange circle coordinates to avoid overlapping. The minimum distance allowed among trees
-#' is 1 meter. The packages \pkg{ggforce} and \pkg{ggplot2} are used to draw the map.
+#' is 1 meter. Circle positions within quadrats are arranged with \pkg{packcircles} to avoid overlap, and the
+#' map is drawn with \pkg{ggplot2}.
 #'
 #' The data frame passed to the \code{data} argument must include two columns indicating x and y
 #' coordinates of each quadrat that the tree belongs or the actual tree coordinates. If actual
@@ -80,8 +81,7 @@
 #'        alpha = 0.4, cex.radius = 2, legend = FALSE,
 #'        long = FALSE, ind.coord = FALSE)
 #'
-#' @importFrom ggplot2 ggplot theme element_blank aes scale_x_continuous scale_y_continuous coord_fixed
-#' @importFrom ggforce geom_circle
+#' @importFrom ggplot2 ggplot theme element_blank aes scale_x_continuous scale_y_continuous coord_fixed geom_polygon
 #' @importFrom packcircles circleRepelLayout
 #' @export
 
@@ -93,7 +93,6 @@ BAplot <- function(formula, data, taxon="taxon", circumference=TRUE, quadrat.siz
   y<-is.na(data) | data == "" # search empty and NAs cells
   data <- data[!apply(y == TRUE, 1, all), !apply(y == TRUE, 2, all)]
   #if(all((.packages())!= "ggplot2")) require(ggplot2)
-  #if(all((.packages())!= "ggforce")) require(ggforce)
   #if(all((.packages())!= "packcircles")) require(packcircles)
 
   if (rm.dead) # remove dead trees
@@ -165,11 +164,13 @@ BAplot <- function(formula, data, taxon="taxon", circumference=TRUE, quadrat.siz
   } # End of 'if()'
 
   # plot the map
+  # Circles are drawn as polygons (360 vertices each) with ggplot2::geom_polygon()
+  circles <- circle_polygons(res.plot, r = res.plot$radius * cex.radius)
 
   if(legend){
     map<-ggplot2::ggplot() +
       theme(panel.grid.minor = element_blank()) +
-      geom_circle(aes(x0 = x, y0 = y, r = radius*cex.radius, fill = taxon, color=taxon), alpha=alpha, data = res.plot) +
+      geom_polygon(aes(x = x, y = y, group = id, fill = taxon, color = taxon), alpha = alpha, data = circles) +
       scale_x_continuous(breaks = grid.x) +
       scale_y_continuous(breaks = grid.y) +
       coord_fixed()
@@ -177,11 +178,34 @@ BAplot <- function(formula, data, taxon="taxon", circumference=TRUE, quadrat.siz
   } else {
     map<-ggplot2::ggplot() +
       theme(panel.grid.minor = element_blank()) +
-      geom_circle(aes(x0 = x, y0 = y, r = radius*cex.radius), fill = col, color=NA, alpha=alpha, show.legend=FALSE, data = res.plot) +
+      geom_polygon(aes(x = x, y = y, group = id), fill = col, color = NA, alpha = alpha, show.legend = FALSE, data = circles) +
       scale_x_continuous(breaks = grid.x) +
       scale_y_continuous(breaks = grid.y) +
       coord_fixed()
     print(map)
   }
   if(long) return(res.plot)
+}
+
+#' Polygon coordinates of circles (internal)
+#'
+#' Converts circle centres and radii into the vertices of regular polygons, so the circles
+#' can be drawn with \code{ggplot2::geom_polygon()}.
+#'
+#' @param df A \code{data.frame} with columns \code{x}, \code{y} (centres) and \code{taxon}.
+#' @param r Numeric vector of radii, one per row of \code{df}.
+#' @param n Number of vertices per circle.
+#' @return A \code{data.frame} with columns \code{id}, \code{taxon}, \code{x} and \code{y}.
+#' @keywords internal
+#' @noRd
+circle_polygons <- function(df, r, n = 360) {
+  theta <- seq(0, 2 * pi, length.out = n + 1)[-(n + 1)]
+  idx <- rep(seq_len(nrow(df)), each = n)
+  data.frame(
+    id    = idx,
+    taxon = df$taxon[idx],
+    x     = df$x[idx] + r[idx] * cos(theta),
+    y     = df$y[idx] + r[idx] * sin(theta),
+    stringsAsFactors = FALSE
+  )
 }

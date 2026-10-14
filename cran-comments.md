@@ -12,6 +12,8 @@ and we will fix it promptly.
 
 Changes in version 0.2.1 (the archived version was 0.2.0):
 
+* The dependency on 'ggforce' was removed (BAplot() now draws circles with
+  ggplot2::geom_polygon()).
 * AGB() no longer accesses the Internet by default (correct.taxon = FALSE is now
   the default).
 * When requested (correct.taxon = TRUE), AGB() handles an unavailable TNRS service: it gives an informative warning

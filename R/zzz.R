@@ -3,4 +3,4 @@
 #' @importFrom utils getFromNamespace menu tail
 NULL
 
-utils::globalVariables(c("x", "radius", "n", "s", "lower", "upper", "lower_smooth", "upper_smooth", "Taxon", "Variable", "Value", "IV"))
+utils::globalVariables(c("x", "y", "id", "radius", "n", "s", "lower", "upper", "lower_smooth", "upper_smooth", "Taxon", "Variable", "Value", "IV"))

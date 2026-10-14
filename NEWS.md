@@ -1,5 +1,8 @@
 # PhytoIn 0.2.1
 
+- Removed the dependency on 'ggforce'. BAplot() now draws the basal-area circles as
+  polygons with ggplot2::geom_polygon(); circle positions are still arranged with
+  'packcircles', so maps are unchanged.
 - AGB(): the default of `correct.taxon` is now `FALSE`, so AGB() does not access the
   internet unless requested. Use `correct.taxon = TRUE` to standardize taxon names
   with the online TNRS service (previous default).
